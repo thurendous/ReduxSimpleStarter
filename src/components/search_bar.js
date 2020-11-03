@@ -7,13 +7,22 @@ const Component = React.Component;
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        this.state = { term: "" };
+        this.state = { term: "Starting Value" };
     }
 
     //render方法是必须加上的否则会报错
     //刚开始推荐 使用的是函数部件，当需要的时候在使用class部件。
     render() {
-        return <input onChange={event => console.log(event.target.value)} />
+        return (
+            <div>
+                <input
+                    value={this.state.term}
+                    onChange={event => this.setState({ term: event.target.value })} />
+                {/* <p>
+                    value of the input: {this.state.term}
+                </p> */}
+            </div>
+        )
     }
 }
 
