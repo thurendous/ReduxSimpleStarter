@@ -14,7 +14,7 @@ class SearchBar extends Component {
     //刚开始推荐 使用的是函数部件，当需要的时候在使用class部件。
     render() {
         return (
-            <div>
+            <div className="search-bar">
                 <input
                     value={this.state.term}
                     onChange={event => this.setState({ term: event.target.value })} />

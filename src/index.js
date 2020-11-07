@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import SearchBar from "./components/search_bar" // 这里我们使用的是一个目录地址，因为这个是我们自制的一个东西。
 import YTsearch from 'youtube-api-search';
 import VideoList from "./components/video_list";
+import VideoDetail from "./components/video_detail";
 
 const API_KEY = 'AIzaSyCCZRQEajFGl9GxbCG_lWa1MvG3fdS3bWI'
 
@@ -16,7 +17,7 @@ class App extends Component {
 
         this.state = { videos: [] };
 
-        YTsearch({ key: API_KEY, term: 'surfboards' }, (videos) => {
+        YTsearch({ key: API_KEY, term: 'poisonで泣きやむ' }, (videos) => {
             this.setState({ videos });
             // this.setState({ videos: videos})
 
@@ -26,6 +27,7 @@ class App extends Component {
     render() {
         return (<div>
             <SearchBar />
+            <VideoDetail video={this.state.videos[0]} />
             <VideoList videos={this.state.videos} />
         </div >);
     };
