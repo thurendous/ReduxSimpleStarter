@@ -1,4 +1,5 @@
 // import React module
+import _ from "lodash"; // 这个包是设置检索的阈值用的。
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import SearchBar from "./components/search_bar" // 这里我们使用的是一个目录地址，因为这个是我们自制的一个东西。
@@ -15,21 +16,36 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { videos: [] };
+        this.state = {
+            videos: [],
+            selectedVideo: null
+        };
+        this.videoSearch('surfboards');
+    }
 
-        YTsearch({ key: API_KEY, term: 'poisonで泣きやむ' }, (videos) => {
-            this.setState({ videos });
+    videoSearch(term) {
+        YTsearch({ key: API_KEY, term: term }, (videos) => {
+            this.setState({
+                videos: videos,
+                selectedVideo: videos[0]
+            });
             // this.setState({ videos: videos})
 
         });
     }
 
     render() {
-        return (<div>
-            <SearchBar />
-            <VideoDetail video={this.state.videos[0]} />
-            <VideoList videos={this.state.videos} />
-        </div >);
+        const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+        // 这里就限制了这个函数被调用的次数了，每300毫秒调用一次。
+
+        return (
+            <div>
+                <SearchBar onSearchTermChange={videoSearch} />
+                <VideoDetail video={this.state.selectedVideo} />
+                <VideoList
+                    onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
+                    videos={this.state.videos} />
+            </div >);
     };
 }
 

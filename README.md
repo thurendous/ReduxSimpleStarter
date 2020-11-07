@@ -1,3 +1,10 @@
+# Reactを使ってyoutubeのAPIも用いてyoutube検索できて再生できる機能のwebを作成した。
+
+起動手順は以下：
+> npm start
+localhost:8080
+
+
 # ReduxSimpleStarter
 
 Interested in learning [Redux](https://www.udemy.com/react-redux/)?
